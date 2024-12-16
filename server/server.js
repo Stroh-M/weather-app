@@ -6,12 +6,15 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import { Strategy as LocalStrategy } from "passport-local";
 import passport from "passport";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 const port = 5000;
 const saltRounds = 10;
+
+app.use(cors());
 
 app.use(express.json());
 app.use(
@@ -51,13 +54,22 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+// LOGIN ROUTE /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.post(
   "/login",
-  passport.authenticate("local", { failureMessage: true, failWithError: true }),
+  passport.authenticate("local", { failureMessage: true }),
   (req, res) => {
     res.json(req.user);
   }
 );
+
+// LOGOUT ROUTE /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.post("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return res.status(500).json({ message: "logout failed" });
+    res.json({ message: "logout successful" });
+  });
+});
 
 // CURRENT WEATHER WITH SPECIFIC LOCATION ///////////////////////////////////////////////////////////////////////////////////
 app.get("/weather/current/:location", async (req, res) => {
@@ -73,7 +85,7 @@ app.get("/weather/current/:location", async (req, res) => {
       console.error(err.message);
     }
   } else {
-    res.json({message: "not logged in"})
+    res.json({ message: "not logged in" });
   }
 });
 
@@ -90,7 +102,7 @@ app.get("/weather/forecast/:location", async (req, res) => {
       console.error(err.message);
     }
   } else {
-    res.json({message: "not logged in"});
+    res.json({ message: "not logged in" });
   }
 });
 
@@ -102,23 +114,16 @@ app.get("/crypto/prices", async (req, res) => {
       const result = await axios.get(
         `http://api.coinlayer.com/api/live?access_key=${process.env.CRYPTO_CURRENCY_API_KEY}&symbols=BTC,ETH,USDT,XRP,SOL`
       );
-  
+
       console.log(result.data);
       res.json(result.data);
     } catch (err) {
       console.error(err.message);
     }
   } else {
-    res.json({message: "not logged in"})
+    res.json({ message: "not logged in" });
   }
 });
-
-app.post("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) return res.status(500).json({message: "logout failed"});
-    res.json({message: "logout successful"});
-  })
-})
 
 // CRYPTO LIST/INFO //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/crypto/info", async (req, res) => {
@@ -134,7 +139,7 @@ app.get("/crypto/info", async (req, res) => {
       console.error(err.message);
     }
   } else {
-    res.json({message: "not logged in"})
+    res.json({ message: "not logged in" });
   }
 });
 
@@ -155,7 +160,7 @@ app.get("/zmanim/today/:location", async (req, res) => {
       console.error(err.message);
     }
   } else {
-    res.json({message: "not logged in"})
+    res.json({ message: "not logged in" });
   }
 });
 
