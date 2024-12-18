@@ -14,7 +14,10 @@ const app = express();
 const port = 5000;
 const saltRounds = 10;
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5174",
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(
@@ -24,6 +27,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: "lax"
     },
   })
 );
@@ -42,11 +46,11 @@ app.post("/signup", async (req, res) => {
           "INSERT INTO users (username, password) VALUES (($1), ($2)) RETURNING *",
           [username, hash]
         );
-        res.json("signed up successfully");
+        res.status(200).json("signed up successfully");
         console.log(result);
       } catch (err) {
         console.error(err.message);
-        res.json("unsuccessful sign up, username already exists");
+        res.status(500).json("unsuccessful sign up, username already exists");
       }
     });
   } catch (err) {
@@ -67,9 +71,25 @@ app.post(
 app.post("/logout", (req, res) => {
   req.logout((err) => {
     if (err) return res.status(500).json({ message: "logout failed" });
-    res.json({ message: "logout successful" });
+    // res.json({ message: "logout successful" });
+
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({message: "failed to destroy session"})
+      }
+      res.clearCookie("connect.sid");
+      return res.status(200).json({message: "successful logout"})
+    })
   });
 });
+
+app.post("/check-auth", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({isLoggedIn: true, user: req.user})
+  } else if (!req.isAuthenticated()) {
+    res.json({isLoggedIn: false, user: false})
+  }
+})
 
 // CURRENT WEATHER WITH SPECIFIC LOCATION ///////////////////////////////////////////////////////////////////////////////////
 app.get("/weather/current/:location", async (req, res) => {
@@ -112,7 +132,7 @@ app.get("/crypto/prices", async (req, res) => {
     try {
       // getting crypto prices
       const result = await axios.get(
-        `http://api.coinlayer.com/api/live?access_key=${process.env.CRYPTO_CURRENCY_API_KEY}&symbols=BTC,ETH,USDT,XRP,SOL`
+        `http://api.coinlayer.com/api/live?access_key=${process.env.CRYPTO_CURRENCY_API_KEY}&symbols=BTC,ETH,USDT`
       );
 
       console.log(result.data);
