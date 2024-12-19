@@ -1,0 +1,20 @@
+nav.dashboard-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 5px solid black;
+    width: fit-content;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    margin: 20px;
+    width: 200px;
+}
+
+a.active-link {
+    color: blue;
+}
+
+

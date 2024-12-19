@@ -1,11 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import "../styles/dashboard.css";
 
 export default function Dashboard() {
   return (
     <>
-      <Link to="/dashboard/weather">Weather</Link>
-      <Link to="/dashboard/stocks">Stocks</Link>
-      <Link to="/dashboard/crypto">Crypto Currency</Link>
+      <div>
+        <nav className="dashboard-nav">
+          <NavLink className={({isActive}) => {isActive ? "active-link" : ""}} to="/dashboard/weather">
+            Weather
+          </NavLink>
+
+          <NavLink className={({isActive}) => (isActive ? "active-link" : "")} to="/dashboard/stocks">
+            Stocks
+          </NavLink>
+
+          <NavLink className={({isActive}) => (isActive ? "active-link" : "")} to="/dashboard/crypto">
+            Crypto Currency
+          </NavLink>
+        </nav>
+      </div>
 
       <Outlet />
     </>

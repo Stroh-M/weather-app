@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import Heading from "../components/Heading";
+import axios from "axios";
 
 export default function Cryptopage() {
-    useEffect(() => {
-        const fetchInfo = () => {
-
-        }
-    })
+    
   return (
     <>
       <Heading text="Crypto Page" />
