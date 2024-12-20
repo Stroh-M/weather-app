@@ -4,13 +4,18 @@ import axios from "axios";
 import Weathercard from "../components/weathercard";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import "../styles/weatherpage.css"
-
+import "../styles/weatherpage.css";
+import Input from "../components/input";
 
 export default function Weatherpage() {
   const [inputLocation, setInputLocation] = useState("");
   const [currentWeatherObject, setCurrentWeatherObject] = useState({});
   const [fetchedData, setFetchedData] = useState(false);
+
+  function changeHandler(e) {
+    setInputLocation(e.target.value);
+    console.log(inputLocation);
+  }
 
   async function fetchData(e) {
     e.preventDefault();
@@ -26,35 +31,42 @@ export default function Weatherpage() {
 
   return (
     <>
-    <div>
-    <nav>
-        
-            <NavLink to="/dashboard/weather/forecast">Forecast</NavLink>
-          
-            <NavLink to={"/dashboard/weather"}>Current</NavLink>
-          
-      </nav>
-      <Heading text="Weather" />
-      <form>
-        <input
-          onChange={(e) => {
-            setInputLocation(e.target.value);
-          }}
-          type="text"
-          name="location"
-          value={inputLocation}
-          placeholder="Enter zip code...."
-        />
-        <button onClick={fetchData}>Go</button>
-      </form>
-      {fetchedData && (
-        <Weathercard
-          location={currentWeatherObject.location.name}
-          temp={currentWeatherObject.current.temp_f}
-          condition={currentWeatherObject.current.condition.text}
-          conditionIcon={currentWeatherObject.current.condition.icon}
-        />
-      )}
+      <div className="weather-page">
+        <nav>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active-link" : "")}
+            to="/dashboard/forecast"
+          >
+            Forecast
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => (isActive ? "active-link" : "")}
+            end
+            to={"/dashboard/weather"}
+          >
+            Current
+          </NavLink>
+        </nav>
+        <Heading text="Weather" />
+        <form>
+          <Input
+            change={changeHandler}
+            type="text"
+            name="location"
+            value={inputLocation}
+            placeholder="Enter zip code...."
+          />
+          <button onClick={fetchData}>Go</button>
+        </form>
+        {fetchedData && (
+          <Weathercard
+            location={currentWeatherObject.location.name}
+            temp={currentWeatherObject.current.temp_f}
+            condition={currentWeatherObject.current.condition.text}
+            conditionIcon={currentWeatherObject.current.condition.icon}
+          />
+        )}
       </div>
 
       <Outlet />

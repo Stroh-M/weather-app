@@ -1,0 +1,31 @@
+div.signup-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1.signup-title {
+    display: flex;
+    justify-content: center;
+}
+
+a.login-link {
+    text-decoration: underline;
+    color: blue;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+
+}
+
+div.signup-area {
+    border: 3px solid blue;
+    width: 30%;
+    height: 45%;
+    border-radius: 5px;
+}

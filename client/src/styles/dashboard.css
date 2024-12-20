@@ -1,9 +1,18 @@
+
+
+
 nav.dashboard-nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-right: 5px solid black;
     width: fit-content;
+    height: 100vh;
+}
+
+nav.website-nav {
+    position: absolute;
+    top: 30px;
 }
 
 a {

@@ -1,0 +1,7 @@
+div.stocks-page {
+    position: absolute;
+    left: 20%;
+    top: 20px;
+    height: 100vh;
+    width: 90%;
+  }

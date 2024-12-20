@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Form from "../components/form";
 import axios from "axios";
-import useAuth from "../hooks/useAuth";
+import "../styles/loginpage.css";
 
 export default function Loginpage() {
   const navigate = useNavigate();
@@ -22,14 +22,18 @@ export default function Loginpage() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <Form submit={submitHandler} buttonText="Log In" />
-      <p>
-        Not signed up yet?{" "}
-        <span>
-          <Link to="/signup">Sign Up</Link>
-        </span>
-      </p>
+      <div className="login-page">
+        <div className="login-area">
+          <h1 className="login-title">Log In</h1>
+          <Form submit={submitHandler} buttonText="Log In" />
+          <p>
+            Not signed up yet?{" "}
+            <span>
+              <Link className="signup-link" to="/signup">Sign Up</Link>
+            </span>
+          </p>
+        </div>
+      </div>
     </>
   );
 }

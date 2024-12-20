@@ -10,6 +10,7 @@ import Weatherpage from "./pages/Weatherpage";
 import Stockspage from "./pages/Stockspage";
 import Cryptopage from "./pages/Cryptopage";
 import Forecastpage from "./pages/Forcastpage";
+import "../main.css";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
 
   {
     path: "/login",
-    element: <Loginpage />
+    element: <Loginpage />,
   },
 
   {
@@ -35,25 +36,24 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/weather",
         element: <ProtectedRoute element={Weatherpage} />,
-        children: [
-          {
-            path: "/dashboard/weather/forecast",
-            element: <ProtectedRoute element={Forecastpage} />,
-          },
-        ]
+      },
+      
+      {
+        path: "/dashboard/forecast",
+        element: <ProtectedRoute element={Forecastpage} />,
       },
 
       {
         path: "/dashboard/stocks",
-        element: <ProtectedRoute element={Stockspage} />
-      }, 
-      
+        element: <ProtectedRoute element={Stockspage} />,
+      },
+
       {
         path: "/dashboard/crypto",
-        element: <ProtectedRoute element={Cryptopage} />
-      }
-    ]
-  }
+        element: <ProtectedRoute element={Cryptopage} />,
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
