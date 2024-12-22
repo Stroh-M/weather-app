@@ -14,10 +14,12 @@ const app = express();
 const port = 5000;
 const saltRounds = 10;
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5174",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(
@@ -27,7 +29,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "lax"
+      sameSite: "lax",
     },
   })
 );
@@ -75,21 +77,21 @@ app.post("/logout", (req, res) => {
 
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({message: "failed to destroy session"})
+        return res.status(500).json({ message: "failed to destroy session" });
       }
       res.clearCookie("connect.sid");
-      return res.status(200).json({message: "successful logout"})
-    })
+      return res.status(200).json({ message: "successful logout" });
+    });
   });
 });
 
 app.post("/check-auth", (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({isLoggedIn: true, user: req.user})
+    res.json({ isLoggedIn: true, user: req.user });
   } else if (!req.isAuthenticated()) {
-    res.json({isLoggedIn: false, user: false})
+    res.json({ isLoggedIn: false, user: false });
   }
-})
+});
 
 // CURRENT WEATHER WITH SPECIFIC LOCATION ///////////////////////////////////////////////////////////////////////////////////
 app.get("/weather/current/:location", async (req, res) => {
