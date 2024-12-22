@@ -32,7 +32,7 @@ export default function Weatherpage() {
   return (
     <>
       <div className="weather-page">
-        <nav>
+        <nav className="weather-nav">
           <NavLink
             className={({ isActive }) => (isActive ? "active-link" : "")}
             to="/dashboard/forecast"
@@ -49,7 +49,7 @@ export default function Weatherpage() {
           </NavLink>
         </nav>
         <Heading text="Weather" />
-        <form>
+        <form className="weather-form">
           <Input
             change={changeHandler}
             type="text"

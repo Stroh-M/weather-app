@@ -15,7 +15,7 @@ const port = 5000;
 const saltRounds = 10;
 
 app.use(cors({
-  origin: "http://localhost:5174",
+  origin: "http://localhost:5173",
   credentials: true
 }));
 
@@ -100,7 +100,7 @@ app.get("/weather/current/:location", async (req, res) => {
         `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${location}&aqi=no&alerts=no`
       );
       console.log(result.data);
-      res.json(result.data.current);
+      res.json(result.data);
     } catch (err) {
       console.error(err.message);
     }

@@ -1,8 +1,14 @@
+.weather-form {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+}
+
 div.weather-page {
   position: absolute;
   left: 20%;
   top: 20px;
-  height: 100vh;
+  height: 97vh;
   width: 90%;
 }
 

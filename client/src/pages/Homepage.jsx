@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Homepage() {
     const {isLoggedIn, loading} = useAuth();
-    if (loading) return <p>Loading.....</p>
+    if (loading) return <CircularProgress />
 
 
   return (
