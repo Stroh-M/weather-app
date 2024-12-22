@@ -1,3 +1,58 @@
 div.weather-card {
-    
+  width: 30%;
+  height: fit-content;
+  padding: 20px;
+  border: 3px solid blue;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+div.location-area {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+div.temperature-area {
+  text-align: center;
+  font-size: 2em;
+}
+
+div.condition-area {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.condition-icon {
+  width: 30%;
+  height: 30%;
+  margin: 0 auto;
+}
+
+p.show-more {
+  cursor: pointer;
+}
+
+div.details {
+  border: 1px solid black;
+  height: 80px;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.details::-webkit-scrollbar {
+  width: 5px;
+  background-color: lightblue;
+}
+
+.details::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 5px;
+}
+
+aside.last-updated {
+  text-align: center;
+  font-size: 0.8em;
+  color: black;
 }
