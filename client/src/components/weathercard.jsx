@@ -8,7 +8,7 @@ export default function Weathercard(props) {
       <div className="weather-card">
         <div className="location-area">
           <span>
-            {props.location}, {props.region}
+            {props.location}, {props.region}, {props.country}
           </span>
         </div>
         <div className="temperature-area">

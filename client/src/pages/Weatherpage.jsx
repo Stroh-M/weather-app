@@ -4,34 +4,34 @@ import axios from "axios";
 import Weathercard from "../components/weathercard";
 import { Outlet } from "react-router-dom";
 import "../styles/weatherpage.css";
-import Input from "../components/input";
 import CircularProgress from "@mui/material/CircularProgress";
 import WeatherNav from "../components/weatherNav";
+import WeatherForm from "../components/weatherform";
 
 export default function Weatherpage() {
-  const [inputLocation, setInputLocation] = useState("");
   const [currentWeatherObject, setCurrentWeatherObject] = useState({});
   const [fetchedData, setFetchedData] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  function changeHandler(e) {
-    setInputLocation(e.target.value);
-    console.log(inputLocation);
-  }
-
-  async function fetchData(e) {
-    e.preventDefault();
+  async function fetchData(location) {
     setLoading(true);
     try {
       const result = await axios.get(
-        `http://localhost:5000/weather/current/${inputLocation}`,
+        `http://localhost:5000/weather/current/${location}`,
         { withCredentials: true }
       );
-      console.log(result);
-      setCurrentWeatherObject(result.data);
-      setFetchedData(true);
-      setLoading(false);
-      setInputLocation("");
+      if (result.data.message === "invalid location") {
+        setError(true);
+        setLoading(false);
+        setFetchedData(false);
+        setCurrentWeatherObject(result.data);
+      } else {
+        console.log(result);
+        setCurrentWeatherObject(result.data);
+        setFetchedData(true);
+        setLoading(false);
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -42,17 +42,13 @@ export default function Weatherpage() {
       <div className="weather-page">
         <WeatherNav />
         <Heading text="Weather" />
-        <form className="weather-form">
-          <Input
-            change={changeHandler}
-            type="text"
-            name="location"
-            value={inputLocation}
-            placeholder="Enter zip code...."
-          />
-          <button className="go-button-current" onClick={fetchData}>Go</button>
-        </form>
-        {!fetchedData && <p className="instruction-paragraph">Enter a zip code to get the weather</p>}
+        <WeatherForm className="go-button-current" submit={fetchData} />
+        {error && <aside>{currentWeatherObject.message}</aside>}
+        {!fetchedData && (
+          <p className="instruction-paragraph">
+            Enter a zip code to get the weather
+          </p>
+        )}
         {loading && <CircularProgress />}
         {fetchedData && (
           <Weathercard
@@ -68,6 +64,7 @@ export default function Weatherpage() {
             gustMph={currentWeatherObject.current.gust_mph}
             lastUpdated={currentWeatherObject.current.last_updated}
             precipationInches={currentWeatherObject.current.precip_in}
+            country={currentWeatherObject.location.country}
           />
         )}
       </div>
