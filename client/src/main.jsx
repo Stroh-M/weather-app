@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       
       {
-        path: "/dashboard/forecast",
+        path: "/dashboard/weather/day/:date",
         element: <ProtectedRoute element={Forecastpage} />,
       },
 

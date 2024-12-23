@@ -7,6 +7,7 @@ import "../styles/weatherpage.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import WeatherNav from "../components/weatherNav";
 import WeatherForm from "../components/weatherform";
+import Forecastcards from "../components/forecastcards";
 
 export default function Weatherpage() {
   const [currentWeatherObject, setCurrentWeatherObject] = useState({});
@@ -16,6 +17,7 @@ export default function Weatherpage() {
 
   async function fetchData(location) {
     setLoading(true);
+    setFetchedData(false);
     try {
       const result = await axios.get(
         `http://localhost:5000/weather/current/${location}`,
@@ -40,7 +42,7 @@ export default function Weatherpage() {
   return (
     <>
       <div className="weather-page">
-        <WeatherNav />
+        {/* <WeatherNav /> */}
         <Heading text="Weather" />
         <WeatherForm className="go-button-current" submit={fetchData} />
         {error && <aside>{currentWeatherObject.message}</aside>}
@@ -51,6 +53,7 @@ export default function Weatherpage() {
         )}
         {loading && <CircularProgress />}
         {fetchedData && (
+          <div className="weather-card-container">
           <Weathercard
             location={currentWeatherObject.location.name}
             region={currentWeatherObject.location.region}
@@ -66,7 +69,10 @@ export default function Weatherpage() {
             precipationInches={currentWeatherObject.current.precip_in}
             country={currentWeatherObject.location.country}
           />
+          <Forecastcards info={currentWeatherObject.forecast} />
+          </div>
         )}
+        
       </div>
 
       <Outlet />

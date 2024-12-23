@@ -1,10 +1,11 @@
 div.weather-card {
-  width: 30%;
+  width: 435px;
   height: fit-content;
   padding: 20px;
   border: 3px solid blue;
   border-radius: 15px;
-  margin: 10px;
+  margin-top: 10px;
+  background-image: linear-gradient(to right, lightblue, rgba(144, 238, 144, 0.216));
 }
 
 div.location-area {
@@ -34,7 +35,7 @@ p.show-more {
 
 div.details {
   border: 1px solid black;
-  height: 80px;
+  height: 85px;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: 1fr 1fr;
