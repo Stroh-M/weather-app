@@ -16,7 +16,7 @@ const saltRounds = 10;
 
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5175",
     credentials: true,
   })
 );
@@ -99,29 +99,17 @@ app.get("/weather/current/:location", async (req, res) => {
     try {
       const { location } = req.params;
       const result = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${location}&aqi=no&alerts=no`
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${location}&days=3&aqi=no&alerts=no`
       );
       console.log(result.data);
       res.json(result.data);
     } catch (err) {
       console.error(err.message);
-    }
-  } else {
-    res.json({ message: "not logged in" });
-  }
-});
-
-// FORECAST FOR LOCATION SPECIFIED ///////////////////////////////////////////////////////////////////////////////////////////
-app.get("/weather/forecast/:location", async (req, res) => {
-  if (req.isAuthenticated()) {
-    try {
-      const { location } = req.params;
-      const result = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${location}&days=3&api=no&alerts=no`
-      );
-      res.json(result.data.forecast);
-    } catch (err) {
-      console.error(err.message);
+      if (err) {
+        if (err.response.status === 400) {
+          res.json({ message: "invalid location" });
+        }
+      }
     }
   } else {
     res.json({ message: "not logged in" });
