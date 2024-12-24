@@ -1,6 +1,19 @@
-import { Link } from "react-router-dom";
+import Modal from "./modal";
+import { useState } from "react";
 
 export default function Forecastcards(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [divIdClicked, setDivIdClicked] = useState("");
+
+  function clickHandler(e) {
+    setIsOpen(true);
+    setDivIdClicked(e.target.id);
+  }
+
+  function close() {
+    setIsOpen(false);
+  }
+
   return (
     <>
       {console.log(props.info)}
@@ -11,7 +24,13 @@ export default function Forecastcards(props) {
             style={{ position: "relative" }}
             key={day.date_epoch}
           >
-            <Link style={{ margin: "0px", display: "block" }} to={`/dashboard/weather/day/${day.date_epoch}`}>{day.date}</Link>
+            <div
+              onClick={clickHandler}
+              style={{ margin: "0px", display: "block" }}
+              id={day.date_epoch}
+            >
+              {day.date}
+            </div>
 
             <img src={day.day.condition.icon} />
             <figcaption>{day.day.condition.text}</figcaption>
@@ -24,6 +43,7 @@ export default function Forecastcards(props) {
             <div style={{ position: "absolute", bottom: "5px", right: "5px" }}>
               Precipitation: {day.day.daily_chance_of_rain}%
             </div>
+            <Modal isOpen={isOpen} close={close} id={divIdClicked} info={props.info} />
           </div>
         );
       })}

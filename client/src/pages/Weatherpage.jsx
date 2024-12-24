@@ -42,7 +42,6 @@ export default function Weatherpage() {
   return (
     <>
       <div className="weather-page">
-        {/* <WeatherNav /> */}
         <Heading text="Weather" />
         <WeatherForm className="go-button-current" submit={fetchData} />
         {error && <aside>{currentWeatherObject.message}</aside>}
@@ -74,8 +73,6 @@ export default function Weatherpage() {
         )}
         
       </div>
-
-      <Outlet />
     </>
   );
 }

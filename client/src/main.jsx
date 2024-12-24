@@ -9,7 +9,6 @@ import Dashboard from "./pages/Dashboardpage";
 import Weatherpage from "./pages/Weatherpage";
 import Stockspage from "./pages/Stockspage";
 import Cryptopage from "./pages/Cryptopage";
-import Forecastpage from "./pages/Forcastpage";
 import "../main.css";
 
 const router = createBrowserRouter([
@@ -36,11 +35,6 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/weather",
         element: <ProtectedRoute element={Weatherpage} />,
-      },
-      
-      {
-        path: "/dashboard/weather/day/:date",
-        element: <ProtectedRoute element={Forecastpage} />,
       },
 
       {

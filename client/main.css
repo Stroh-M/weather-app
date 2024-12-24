@@ -3,12 +3,13 @@ html {
     width: 100vw;
     overflow-x: hidden;
     font-family: "Roboto", serif;
+    /* color: white; */
 }
 
 body {
     margin: 0px;
     height: 100%;
     width: 100%;
-    background-color: lightblue;
+    /* background-color: royalblue; */
     background-image: linear-gradient(to right, lightblue, rgba(144, 238, 144, 0.734));
 }

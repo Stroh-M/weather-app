@@ -1,0 +1,25 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    opacity: unset;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: linear-gradient(to right, lightblue, rgb(174, 238, 144));
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to right, lightblue, rgba(174, 238, 144, 0.177));
+    margin: auto;
+    padding: 10px;
+    border: 1px solid blue;
+}

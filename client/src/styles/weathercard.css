@@ -2,10 +2,11 @@ div.weather-card {
   width: 435px;
   height: fit-content;
   padding: 20px;
-  border: 3px solid blue;
+  border: 3px solid navy;
   border-radius: 15px;
   margin-top: 10px;
   background-image: linear-gradient(to right, lightblue, rgba(144, 238, 144, 0.216));
+  /* background-color: skyblue; */
 }
 
 div.location-area {
