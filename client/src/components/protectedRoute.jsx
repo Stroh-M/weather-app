@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 function ProtectedRoute({element : Component}) {
     
     const {isLoggedIn, loading, user} = useAuth();
-    if (loading) return <CircularProgress />
+    if (loading) return <div style={{display: "flex", justifyContent: "center", alignContent: "center"}}><CircularProgress /></div>
 
     return isLoggedIn ? <Component /> : <Navigate to="/login" replace />
 }

@@ -6,43 +6,50 @@ export default function Modal(props) {
     <>
       <div className="modal">
         <div className="modal-content">
+          <div className="modal-heading">
           <button
+          className="exit-button"
             onClick={() => {
               props.close();
             }}
           >
             &times;
           </button>
-          <h1>Hourly Weather</h1>
-          {props.info.forecastday
-            .filter((day) => day.date_epoch == props.id)
-            .map((day) => {
-              return (
-                <>
-                  {day.hour.map((hour) => {
-                    return (
-                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap"}}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                        }}
-                      >
-                        <h3>{hour.time}</h3>
-                        <img src={hour.condition.icon} />
-                        <figcaption>{hour.condition.text}</figcaption>
-                        <div>
-                          <span>{hour.temp_f} &deg;F</span>
+          
+          <h1 className="hourly-header">Hourly Weather</h1>
+          </div>
+          <div className="hourly-container">
+            {props.info.forecastday
+              .filter((day) => day.date_epoch == props.id)
+              .map((day) => {
+                return (
+                  <>
+                    {day.hour.map((hour) => {
+                      return (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            border: "3px solid blue",
+                            padding: "5px",
+                            borderRadius: "5px"
+                          }}
+                        >
+                          <h3>{hour.time}</h3>
+                          <img src={hour.condition.icon} />
+                          <figcaption>{hour.condition.text}</figcaption>
+                          <div>
+                            <span>{hour.temp_f} &deg;F</span>
+                          </div>
+                          <div>Precipitation: {hour.chance_of_rain}%</div>
                         </div>
-                        <div>Precipitation: {hour.chance_of_rain}%</div>
-                      </div>
-                      </div>
-                    );
-                  })}
-                </>
-              );
-            })}
+                      );
+                    })}
+                  </>
+                );
+              })}
+          </div>
         </div>
       </div>
     </>
