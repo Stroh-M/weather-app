@@ -16,7 +16,7 @@ const saltRounds = 10;
 
 app.use(
   cors({
-    origin: "http://localhost:5175",
+    origin: "http://localhost:5177",
     credentials: true,
   })
 );
@@ -108,6 +108,8 @@ app.get("/weather/current/:location", async (req, res) => {
       if (err) {
         if (err.response.status === 400) {
           res.json({ message: "invalid location" });
+        } else if (err) {
+          res.json({message: "an error occured"});
         }
       }
     }
@@ -122,11 +124,11 @@ app.get("/crypto/prices", async (req, res) => {
     try {
       // getting crypto prices
       const result = await axios.get(
-        `http://api.coinlayer.com/api/live?access_key=${process.env.CRYPTO_CURRENCY_API_KEY}&symbols=BTC,ETH,USDT`
+        `http://api.coinlayer.com/api/live?access_key=${process.env.CRYPTO_CURRENCY_API_KEY}`
       );
 
       console.log(result.data);
-      res.json(result.data);
+      res.json(result.data.rates);
     } catch (err) {
       console.error(err.message);
     }
