@@ -20,7 +20,7 @@ button.exit-button {
     color: white;
     font-size: 15px;
     padding: 5px;
-    position: absolute;
+    position: fixed;
     left: 20px;
 }
 

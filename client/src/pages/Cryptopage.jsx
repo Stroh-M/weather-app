@@ -4,6 +4,9 @@ import axios from "axios";
 import "../styles/cryptopage.css"
 
 export default function Cryptopage() {
+  useEffect(() => {
+    console.log("effected")
+  }, [])
     
   return (
     <>
