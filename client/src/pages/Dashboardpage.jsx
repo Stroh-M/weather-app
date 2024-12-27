@@ -23,7 +23,7 @@ async function logout() {
   }
   return (
     <>
-      <div>
+      <div style={{position: "fixed"}}>
         <nav className="website-nav">
           <NavLink
             onMouseOver={onMouseOverHandler}
