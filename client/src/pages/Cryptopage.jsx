@@ -8,21 +8,23 @@ export default function Cryptopage() {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-    console.log("effected");
     async function fetchData() {
-      const resultPrices = await axios.get(`http://localhost:5000/crypto/prices`, {
-        withCredentials: true,
-      });
+      const resultPrices = await axios.get(
+        `http://localhost:5000/crypto/prices`,
+        {
+          withCredentials: true,
+        }
+      );
       // console.log(result.data);
       const resultInfo = await axios.get(`http://localhost:5000/crypto/info`, {
         withCredentials: true,
-      })
+      });
       setPrices([Object.entries(resultPrices.data)]);
       setInfo([Object.entries(resultInfo.data.crypto)]);
     }
 
     fetchData();
-  }, []);
+  }, [Cryptopage]);
 
   return (
     <>
@@ -30,14 +32,45 @@ export default function Cryptopage() {
       {console.log(info)}
       <div className="crypto-page">
         <Heading text="Crypto Page" />
-        {prices.map((price) => {
+        {prices.map((price, index) => {
           return (
-            <div style={{ padding: "10px", width: "85%", display: "flex", justifyContent: "space-evenly", alignContent: "center", flexWrap: "wrap", gap: "20px"}}>
-              {price.map((p) => {
+            <div
+              key={index}
+              style={{
+                padding: "10px",
+                width: "85%",
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignContent: "center",
+                flexWrap: "wrap",
+                gap: "20px",
+              }}
+            >
+              {price.map((p, index) => {
                 return (
-                  <div style={{border: "3px solid navy", padding: "5px"}}>
+                  <div
+                    key={index}
+                    style={{
+                      border: "3px solid navy",
+                      padding: "5px",
+                      borderRadius: "5px",
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                    }}
+                  >
+                    <img
+                      src={info[0][index][1].icon_url}
+                      width="50px"
+                      style={{ borderRadius: "50%" }}
+                    />
                     <p>{p[0]}</p>
-                    <p>${p[1]}</p>
+                    <p>
+                      $
+                      {parseFloat(p[1]).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
                   </div>
                 );
               })}
