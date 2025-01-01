@@ -1,5 +1,6 @@
 import Modal from "./modal";
 import { useState } from "react";
+import "../styles/forecastcard.css"
 
 export default function Forecastcards(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,8 @@ export default function Forecastcards(props) {
           >
             <div
               onClick={clickHandler}
-              style={{ margin: "0px", display: "block" }}
+              style={{ margin: "0px", display: "block", cursor: "pointer" }}
+              className="date-link"
               id={day.date_epoch}
             >
               {day.date}

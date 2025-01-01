@@ -151,7 +151,6 @@ export default function Weathercard(props) {
       case 1183:
       case 1189:
       case 1186:
-      case 1189:
       case 1240:
       case 1243:
         setBackgroundImg(

@@ -5,6 +5,7 @@ nav.dashboard-nav {
     border-right: 5px solid black;
     width: fit-content;
     height: 100vh;
+    background-color: skyblue;
 }
 
 nav.website-nav {

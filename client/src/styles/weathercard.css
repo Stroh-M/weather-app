@@ -50,6 +50,7 @@ div.details {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  text-shadow: 0.2px 1px lightblue, 0 0 1em black, 0 0 0.2em black;
 }
 
 .details::-webkit-scrollbar {
