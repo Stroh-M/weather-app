@@ -14,6 +14,8 @@ export default function Forecastcards(props) {
     setIsOpen(false);
   }
 
+  
+
   return (
     <>
       {console.log(props.info)}

@@ -2,12 +2,11 @@ import { useState } from "react";
 import Heading from "../components/Heading";
 import axios from "axios";
 import Weathercard from "../components/weathercard";
-import { Outlet } from "react-router-dom";
 import "../styles/weatherpage.css";
 import CircularProgress from "@mui/material/CircularProgress";
-import WeatherNav from "../components/weatherNav";
 import WeatherForm from "../components/weatherform";
 import Forecastcards from "../components/forecastcards";
+import { css } from "@emotion/react";
 
 export default function Weatherpage() {
   const [currentWeatherObject, setCurrentWeatherObject] = useState({});
@@ -29,6 +28,9 @@ export default function Weatherpage() {
         setFetchedData(false);
         setCurrentWeatherObject(result.data);
       } else {
+        
+
+        
         console.log(result);
         setCurrentWeatherObject(result.data);
         setFetchedData(true);
@@ -53,25 +55,25 @@ export default function Weatherpage() {
         {loading && <CircularProgress />}
         {fetchedData && (
           <div className="weather-card-container">
-          <Weathercard
-            location={currentWeatherObject.location.name}
-            region={currentWeatherObject.location.region}
-            temp={currentWeatherObject.current.temp_f}
-            condition={currentWeatherObject.current.condition.text}
-            conditionIcon={currentWeatherObject.current.condition.icon}
-            wind={currentWeatherObject.current.wind_mph}
-            humidity={currentWeatherObject.current.humidity}
-            feelslike={currentWeatherObject.current.feelslike_f}
-            windDirection={currentWeatherObject.current.wind_dir}
-            gustMph={currentWeatherObject.current.gust_mph}
-            lastUpdated={currentWeatherObject.current.last_updated}
-            precipationInches={currentWeatherObject.current.precip_in}
-            country={currentWeatherObject.location.country}
-          />
-          <Forecastcards info={currentWeatherObject.forecast} />
+            <Weathercard
+              result={currentWeatherObject}
+              location={currentWeatherObject.location.name}
+              region={currentWeatherObject.location.region}
+              temp={currentWeatherObject.current.temp_f}
+              condition={currentWeatherObject.current.condition.text}
+              conditionIcon={currentWeatherObject.current.condition.icon}
+              wind={currentWeatherObject.current.wind_mph}
+              humidity={currentWeatherObject.current.humidity}
+              feelslike={currentWeatherObject.current.feelslike_f}
+              windDirection={currentWeatherObject.current.wind_dir}
+              gustMph={currentWeatherObject.current.gust_mph}
+              lastUpdated={currentWeatherObject.current.last_updated}
+              precipationInches={currentWeatherObject.current.precip_in}
+              country={currentWeatherObject.location.country}
+            />
+            <Forecastcards info={currentWeatherObject.forecast} />
           </div>
         )}
-        
       </div>
     </>
   );
