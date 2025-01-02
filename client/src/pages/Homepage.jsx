@@ -18,7 +18,7 @@ export default function Homepage() {
             <Link to="/signup">Sign Up</Link>
           </li>}
           {!isLoggedIn && <li><Link to="/login">Log In</Link></li>}
-          {isLoggedIn && <li><Link to="/dashboard">Dashboard</Link></li>}
+          {isLoggedIn && <li><Link to="/dashboard/weather">Dashboard</Link></li>}
         </ul>
       </nav>
       <h1>Home Page</h1>

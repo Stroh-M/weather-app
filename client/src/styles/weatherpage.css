@@ -30,8 +30,8 @@ div.weather-card-container {
   margin-top: 10px;
  display: grid;
   grid-template-columns: 479px 479px ;
-  grid-template-rows: 141px 141px 141px;
-  gap: 15px;
+  grid-template-rows: 146px 146px 146px;
+  gap: 20px;
 }
 
 div.forecast-cards {

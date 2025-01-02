@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import axios from "axios";
 import Weathercard from "../components/weathercard";
@@ -6,13 +6,24 @@ import "../styles/weatherpage.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import WeatherForm from "../components/weatherform";
 import Forecastcards from "../components/forecastcards";
-import { css } from "@emotion/react";
 
 export default function Weatherpage() {
   const [currentWeatherObject, setCurrentWeatherObject] = useState({});
   const [fetchedData, setFetchedData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [geolocation, setGeolocation] = useState("");
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((p) => {
+      setGeolocation(`${p.coords.latitude},${p.coords.longitude}`);
+    });
+  }, [Weatherpage]);
+
+  useEffect(() => {
+    parseFloat(geolocation);
+    fetchData(geolocation);
+  }, [geolocation]);
 
   async function fetchData(location) {
     setLoading(true);
@@ -28,9 +39,6 @@ export default function Weatherpage() {
         setFetchedData(false);
         setCurrentWeatherObject(result.data);
       } else {
-        
-
-        
         console.log(result);
         setCurrentWeatherObject(result.data);
         setFetchedData(true);
@@ -43,6 +51,7 @@ export default function Weatherpage() {
 
   return (
     <>
+      {console.log(geolocation)}
       <div className="weather-page">
         <Heading text="Weather" />
         <WeatherForm className="go-button-current" submit={fetchData} />
