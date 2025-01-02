@@ -10,6 +10,6 @@ body {
     margin: 0px;
     height: 100%;
     width: 100%;
-    /* background-color: royalblue; */
-    background-image: linear-gradient(to right, lightblue, rgba(144, 238, 144, 0.734));
+    background-color: skyblue;
+    /* background-image: linear-gradient(to right, lightblue, rgba(144, 238, 144, 0.734)); */
 }

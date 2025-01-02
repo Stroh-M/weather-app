@@ -5,7 +5,7 @@ nav.dashboard-nav {
     border-right: 5px solid black;
     width: fit-content;
     height: 100vh;
-    background-color: skyblue;
+    background-color: rgb(77, 173, 241);
 }
 
 nav.website-nav {
@@ -21,8 +21,7 @@ a {
 }
 
 a.active-link {
-    color: blue;
-
+    color: aliceblue;
 }
 
 
