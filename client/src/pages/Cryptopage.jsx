@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "../styles/cryptopage.css";
 
@@ -31,7 +32,10 @@ export default function Cryptopage() {
       {console.log(prices)}
       {console.log(info)}
       <div className="crypto-page">
-        <Heading text="Crypto Page" />
+        <div className="heading">
+          <Heading text="Crypto Page" />
+          <NavLink to="/dashboard/crypto/settings">Crypto Settings</NavLink>
+        </div>
         {prices.map((price, index) => {
           return (
             <div
