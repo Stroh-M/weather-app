@@ -29,7 +29,7 @@ export default function Cryptopage() {
 
   return (
     <>
-      {console.log(prices)}
+      {/* {console.log(prices)} */}
       {console.log(info)}
       <div className="crypto-page">
         <div className="heading">
@@ -60,8 +60,10 @@ export default function Cryptopage() {
                       borderRadius: "5px",
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr",
+                      gap: "15px"
                     }}
                   >
+                    
                     <img
                       src={info[0][index][1].icon_url}
                       width="50px"

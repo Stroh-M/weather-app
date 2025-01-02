@@ -8,7 +8,7 @@
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-image: linear-gradient(to right, lightblue, rgb(174, 238, 144));
+    background-color: skyblue;
 }
 
 h1.hourly-header {
@@ -42,7 +42,7 @@ div.hourly-container {
 .modal-content {
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(to right, lightblue, rgba(174, 238, 144));
+    background-color: skyblue;
     margin: auto;
     padding: 10px;
 }
