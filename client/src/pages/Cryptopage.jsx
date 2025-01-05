@@ -57,7 +57,7 @@ export default function Cryptopage() {
                     style={{
                       border: "3px solid navy",
                       padding: "5px",
-                      borderRadius: "5px",
+                      borderRadius: "25px",
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr",
                       gap: "15px"

@@ -32,6 +32,8 @@ async function logout() {
           >
             <ArrowBackIcon fontSize={isHoveredOver ? "medium" : "small"} />
           </NavLink>
+
+          
         </nav>
         <nav style={{position: "absolute", bottom: "30px", left: "20px"}}>
           <button onClick={logout}>Log Out</button>

@@ -17,6 +17,13 @@ export default function Weatherpage() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((p) => {
       setGeolocation(`${p.coords.latitude},${p.coords.longitude}`);
+    }, function(error) {
+      if (error.code == error.PERMISSION_DENIED) {
+        setGeolocation("");
+        setLoading(false);
+        setFetchedData(false);
+        setError(false);
+      }
     });
   }, [Weatherpage]);
 

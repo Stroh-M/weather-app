@@ -8,7 +8,6 @@ import ProtectedRoute from "./components/protectedRoute";
 import Dashboard from "./pages/Dashboardpage";
 import Weatherpage from "./pages/Weatherpage";
 import Cryptopage from "./pages/Cryptopage";
-import CryptosettingsPage from "./pages/Cryptosettings";
 import "../main.css";
 
 const router = createBrowserRouter([
@@ -43,11 +42,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  {
-    path: "/dashboard/crypto/settings",
-    element: <ProtectedRoute element={CryptosettingsPage} />
-  }
 ]);
 
 createRoot(document.getElementById("root")).render(

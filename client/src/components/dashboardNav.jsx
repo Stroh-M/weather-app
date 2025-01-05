@@ -5,7 +5,6 @@ export default function DashboardNav() {
     <nav className="dashboard-nav">
       <NavLink
         className={({ isActive }) => (isActive ? "active-link" : "")}
-        
         to="/dashboard/weather"
       >
         Weather
@@ -16,6 +15,13 @@ export default function DashboardNav() {
         to="/dashboard/crypto"
       >
         Crypto Currency
+      </NavLink>
+
+      <NavLink
+        className={({ isActive }) => (isActive ? "active-link" : "")}
+        to="/dashboard/zmanim"
+      >
+        Zmanim
       </NavLink>
     </nav>
   );

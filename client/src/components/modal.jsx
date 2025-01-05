@@ -1,22 +1,28 @@
 import "../styles/modal.css";
+import { motion } from "framer-motion";
 
 export default function Modal(props) {
   if (!props.isOpen) return null;
   return (
     <>
-      <div className="modal">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        className="modal"
+      >
         <div className="modal-content">
           <div className="modal-heading">
-          <button
-          className="exit-button"
-            onClick={() => {
-              props.close();
-            }}
-          >
-            &times;
-          </button>
-          
-          <h1 className="hourly-header">Hourly Weather</h1>
+            <button
+              className="exit-button"
+              onClick={() => {
+                props.close();
+              }}
+            >
+              &times;
+            </button>
+
+            <h1 className="hourly-header">Hourly Weather</h1>
           </div>
           <div className="hourly-container">
             {props.info.forecastday
@@ -33,7 +39,7 @@ export default function Modal(props) {
                             alignItems: "center",
                             border: "3px solid blue",
                             padding: "5px",
-                            borderRadius: "5px"
+                            borderRadius: "25px",
                           }}
                         >
                           <h3>{hour.time}</h3>
@@ -51,7 +57,7 @@ export default function Modal(props) {
               })}
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

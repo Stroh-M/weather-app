@@ -1,6 +1,7 @@
 import Modal from "./modal";
 import { useEffect, useState } from "react";
 import "../styles/forecastcard.css";
+import { motion } from "framer-motion";
 
 export default function Forecastcards(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -161,6 +162,7 @@ export default function Forecastcards(props) {
           break;
 
         case 1201:
+        case 1198:
           backgroundImg =
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpqUZqQ0SdUZU81K8fWYTAMT1elEWrDhJt8g&s";
           break;
