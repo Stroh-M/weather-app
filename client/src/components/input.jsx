@@ -8,6 +8,7 @@ export default function Input(props) {
       name={props.name}
       value={props.value}
       placeholder={props.placeholder}
+      readOnly={props.readonly}
     />
   );
 }

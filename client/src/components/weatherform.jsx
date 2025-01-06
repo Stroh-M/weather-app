@@ -1,4 +1,5 @@
 import Input from "../components/input";
+import Button from "../components/submitbutton"
 import { useState } from "react";
 
 export default function WeatherForm(props) {
@@ -24,7 +25,7 @@ export default function WeatherForm(props) {
         value={inputLocation}
         placeholder="Enter zip code...."
       />
-      <button type="submit" className={props.className}>Go</button>
+      <Button className={props.className} text="Go" />
     </form>
   );
 }

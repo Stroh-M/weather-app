@@ -1,5 +1,6 @@
 import "../styles/modal.css";
 import { motion } from "framer-motion";
+import TimeConverter from "../utils/timeconverter";
 
 export default function Modal(props) {
   if (!props.isOpen) return null;
@@ -30,19 +31,24 @@ export default function Modal(props) {
               .map((day) => {
                 return (
                   <>
-                    {day.hour.map((hour) => {
+                    {day.hour.map((hour, index) => {
                       return (
                         <div
+                          key={index}
                           style={{
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
                             border: "3px solid blue",
-                            padding: "5px",
+                            padding: "25px",
                             borderRadius: "25px",
                           }}
                         >
-                          <h3>{hour.time}</h3>
+                          <h3>
+                            {TimeConverter(
+                              `${hour.time}:00-00:00`.substring(11, 19)
+                            )}
+                          </h3>
                           <img src={hour.condition.icon} />
                           <figcaption>{hour.condition.text}</figcaption>
                           <div>

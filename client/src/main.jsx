@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import Dashboard from "./pages/Dashboardpage";
 import Weatherpage from "./pages/Weatherpage";
 import Cryptopage from "./pages/Cryptopage";
+import Zmanimpage from "./pages/Zmanimpage";
 import "../main.css";
 
 const router = createBrowserRouter([
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/crypto",
         element: <ProtectedRoute element={Cryptopage} />,
+      },
+
+      {
+        path: "/dashboard/zmanim",
+        element: <ProtectedRoute element={Zmanimpage} />,
       },
     ],
   },
