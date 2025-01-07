@@ -2,3 +2,18 @@ div.zmanim-card > p {
     display: block;
     margin: 0px;
 }
+
+form.zmanim-form {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+th {
+    padding-bottom: 5px;
+    text-align: left;
+    border-bottom: 3px solid white;
+}
+
+td {
+    padding-right: 20px;
+}

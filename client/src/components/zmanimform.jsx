@@ -15,6 +15,7 @@ export default function Zmanimform(props) {
   return (
     <>
       <form
+        className="zmanim-form"
         onSubmit={(e) => {
           e.preventDefault();
           props.submit(location, date);

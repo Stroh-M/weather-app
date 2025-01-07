@@ -37,13 +37,15 @@ export default function Zmanimpage() {
       setZmanimObject(result.data);
       setFetchData(true)
     }
+
+
 console.log(zmanimObject);
   return (
     <>
       <div className="zmanim-page">
         <Heading text="Zmanim" />
-        {fetchData && <Zmanimcard zmanimObject={zmanimObject} />}
         <Zmanimform submit={submitForm} />
+        {fetchData && <Zmanimcard zmanimObject={zmanimObject} />}
       </div>
     </>
   );
