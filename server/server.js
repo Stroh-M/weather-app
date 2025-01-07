@@ -159,16 +159,15 @@ app.get("/crypto/info", async (req, res) => {
 app.get("/zmanim/auto", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      const year = req.query.year;
-      const month = req.query.month;
       const date = req.query.date;
-      const location = req.query.location;
+      const latitude = req.query.latitude;
+      const longitude = req.query.longitude;
+      const tzid = req.query.tzid;
       const result = await axios.get(
-        `https://www.hebcal.com/zmanim?cfg=json&zip=${location}&date=${year}-${month}-${date}`
+        `https://www.hebcal.com/zmanim?cfg=json&latitude=${latitude}&longitude=${longitude}&tzid=${tzid}&date=${date}`
       );
       console.log(result.data);
       res.json(result.data);
-
     } catch (err) {
       console.error(err.message);
       if (err.response.status === 400) {
