@@ -2,10 +2,14 @@ import TimeConverter from "../utils/timeconverter";
 import "../styles/zmanimcard.css";
 
 export default function Zmanimcard({ zmanimObject }) {
+  function useRegex(input) {
+    let regex = /^[0-9]+°[0-9]+′N [0-9]+°[0-9]+′W [A-Za-z0-9]+\/[A-Za-z0-9]+_[A-Za-z0-9]+$/i;
+    return regex.test(input);
+}
   return (
     <>
       <div className="zmanim-card">
-        <h2>{zmanimObject.location.title}</h2>
+        <h2>{useRegex(zmanimObject.location.title) ? "My Location" : zmanimObject.location.title}</h2>
         <table style={{paddingBottom: "20px"}}>
           <tr className="table-headers">
             <th>Zman</th>

@@ -34,7 +34,6 @@ export default function Cryptopage() {
       <div className="crypto-page">
         <div className="heading">
           <Heading text="Crypto Page" />
-          <NavLink to="/dashboard/crypto/settings">Crypto Settings</NavLink>
         </div>
         {prices.map((price, index) => {
           return (

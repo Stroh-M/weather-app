@@ -18,10 +18,12 @@ h1.hourly-header {
 button.exit-button {
     background-color: navy;
     color: white;
-    font-size: 15px;
+    font-size: 25px;
     padding: 5px;
     position: fixed;
-    left: 20px;
+    right: 35px;
+    width: 35px;
+    height: 35px;
 }
 
 button.exit-button:hover {
