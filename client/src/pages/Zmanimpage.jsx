@@ -3,6 +3,7 @@ import "../styles/zmanimpage.css";
 import axios from "axios";
 import Zmanimform from "../components/zmanimform";
 import Zmanimcard from "../components/zmanimcard";
+import Heading from "../components/heading";
 
 export default function Zmanimpage() {
     // const [location, setLocation] = useState();
@@ -40,7 +41,7 @@ console.log(zmanimObject);
   return (
     <>
       <div className="zmanim-page">
-        <h1>this is the zmanim page</h1>
+        <Heading text="Zmanim" />
         {fetchData && <Zmanimcard zmanimObject={zmanimObject} />}
         <Zmanimform submit={submitForm} />
       </div>

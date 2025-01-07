@@ -1,5 +1,5 @@
 import axios from "axios";
-import express from "express";
+import express, { response } from "express";
 import dotenv from "dotenv";
 import pool from "./db.js";
 import bcrypt from "bcrypt";
@@ -16,7 +16,7 @@ const saltRounds = 10;
 
 app.use(
   cors({
-    origin: "http://localhost:5175",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -155,21 +155,48 @@ app.get("/crypto/info", async (req, res) => {
   }
 });
 
-// LIST ZMANIM OF CURRENT DAY  /////////////////////////////////////////////////////////////////////////////////////////////////////
-app.get("/zmanim/today/:location", async (req, res) => {
+// LIST ZMANIM OF CURRENT DAY AUTOMATICALLY ONLOAD /////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/zmanim/auto", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      const year = new Date().getFullYear();
-      const month = new Date().getMonth();
-      const date = new Date().getDate();
-      const { location } = req.params;
+      const year = req.query.year;
+      const month = req.query.month;
+      const date = req.query.date;
+      const location = req.query.location;
       const result = await axios.get(
         `https://www.hebcal.com/zmanim?cfg=json&zip=${location}&date=${year}-${month}-${date}`
       );
       console.log(result.data);
       res.json(result.data);
+
     } catch (err) {
       console.error(err.message);
+      if (err.response.status === 400) {
+        res.status(500).json({message: "An error accord"});
+      }
+    }
+  } else {
+    res.json({ message: "not logged in" });
+  }
+});
+
+// LIST ZMANIM FOR CURRENT DAY WITH USER INPUT /////////////////////////////////////////////////////////////////////////////////
+app.get("/zmanim/manual", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const date = req.query.date;
+      const location = req.query.location;
+      const result = await axios.get(
+        `https://www.hebcal.com/zmanim?cfg=json&zip=${location}&date=${date}`
+      );
+      console.log(result.data);
+      res.json(result.data);
+
+    } catch (err) {
+      console.error(err.message);
+      if (err.response.status === 400) {
+        res.status(500).json({message: "An error accord"});
+      }
     }
   } else {
     res.json({ message: "not logged in" });
