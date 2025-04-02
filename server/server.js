@@ -1,18 +1,12 @@
 import axios from "axios";
 import express, { response } from "express";
 import dotenv from "dotenv";
-import pool from "./db.js";
-import bcrypt from "bcrypt";
-import session from "express-session";
-import { Strategy as LocalStrategy } from "passport-local";
-import passport from "passport";
 import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 const port = 5000;
-const saltRounds = 10;
 
 app.use(
   cors({
@@ -22,80 +16,10 @@ app.use(
 );
 
 app.use(express.json());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "lax",
-    },
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// ROUTES //
-
-// SIGNUP ROUTE /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post("/signup", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    bcrypt.hash(password, saltRounds, async (err, hash) => {
-      try {
-        const result = await pool.query(
-          "INSERT INTO users (username, password) VALUES (($1), ($2)) RETURNING *",
-          [username, hash]
-        );
-        res.status(200).json("signed up successfully");
-        console.log(result);
-      } catch (err) {
-        console.error(err.message);
-        res.status(500).json("unsuccessful sign up, username already exists");
-      }
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-// LOGIN ROUTE /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post(
-  "/login",
-  passport.authenticate("local", { failureMessage: true }),
-  (req, res) => {
-    res.json(req.user);
-  }
-);
-
-// LOGOUT ROUTE /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) return res.status(500).json({ message: "logout failed" });
-    // res.json({ message: "logout successful" });
-
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ message: "failed to destroy session" });
-      }
-      res.clearCookie("connect.sid");
-      return res.status(200).json({ message: "successful logout" });
-    });
-  });
-});
-
-app.post("/check-auth", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ isLoggedIn: true, user: req.user });
-  } else if (!req.isAuthenticated()) {
-    res.json({ isLoggedIn: false, user: false });
-  }
-});
 
 // CURRENT WEATHER WITH SPECIFIC LOCATION ///////////////////////////////////////////////////////////////////////////////////
 app.get("/weather/current/:location", async (req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     try {
       const { location } = req.params;
       const result = await axios.get(
@@ -109,18 +33,19 @@ app.get("/weather/current/:location", async (req, res) => {
         if (err.response.status === 400) {
           res.json({ message: "invalid location" });
         } else if (err) {
+          console.error(err.message)
           res.json({message: "an error occured"});
         }
       }
     }
-  } else {
-    res.json({ message: "not logged in" });
-  }
+  // } else {
+  //   res.json({ message: "not logged in" });
+  // }
 });
 
 // CRYPTO PRICES ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/crypto/prices", async (req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     try {
       // getting crypto prices
       const result = await axios.get(
@@ -132,14 +57,14 @@ app.get("/crypto/prices", async (req, res) => {
     } catch (err) {
       console.error(err.message);
     }
-  } else {
-    res.json({ message: "not logged in" });
-  }
+  // } else {
+  //   res.json({ message: "not logged in" });
+  // }
 });
 
 // CRYPTO LIST/INFO //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/crypto/info", async (req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     try {
       // list of crypto currencies info e.g. name, full_name, icons, symbol
       const result = await axios.get(
@@ -150,14 +75,14 @@ app.get("/crypto/info", async (req, res) => {
     } catch (err) {
       console.error(err.message);
     }
-  } else {
-    res.json({ message: "not logged in" });
-  }
+  // } else {
+  //   res.json({ message: "not logged in" });
+  // }
 });
 
 // LIST ZMANIM OF CURRENT DAY AUTOMATICALLY ONLOAD /////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/zmanim/auto", async (req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     try {
       const date = req.query.date;
       const latitude = req.query.latitude;
@@ -174,14 +99,14 @@ app.get("/zmanim/auto", async (req, res) => {
         res.status(500).json({message: "An error accord"});
       }
     }
-  } else {
-    res.json({ message: "not logged in" });
-  }
+  // } else {
+  //   res.json({ message: "not logged in" });
+  // }
 });
 
 // LIST ZMANIM FOR CURRENT DAY WITH USER INPUT /////////////////////////////////////////////////////////////////////////////////
 app.get("/zmanim/manual", async (req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     try {
       const date = req.query.date;
       const location = req.query.location;
@@ -197,38 +122,9 @@ app.get("/zmanim/manual", async (req, res) => {
         res.status(500).json({message: "An error accord"});
       }
     }
-  } else {
-    res.json({ message: "not logged in" });
-  }
-});
-
-passport.use(
-  new LocalStrategy(async (username, password, cb) => {
-    try {
-      const result = await pool.query(
-        "SELECT * FROM users WHERE username = $1",
-        [username]
-      );
-      const hashedPassword = result.rows[0].password;
-      const match = await bcrypt.compare(password, hashedPassword);
-      if (match) {
-        const user = result.rows[0];
-        return cb(null, user);
-      } else if (!match) {
-        return cb(null, false, { message: "password incorrect" });
-      }
-    } catch (err) {
-      return cb(null, false, { message: "Username not found" });
-    }
-  })
-);
-
-passport.serializeUser((user, cb) => {
-  return cb(null, user);
-});
-
-passport.deserializeUser((user, cb) => {
-  return cb(null, user);
+  // } else {
+  //   res.json({ message: "not logged in" });
+  // }
 });
 
 app.listen(port, () => {

@@ -4,7 +4,6 @@ import Homepage from "./pages/Homepage";
 import Signuppage from "./pages/Signuppage";
 import Errorpage from "./pages/Errorpage";
 import Loginpage from "./pages/Loginpage";
-import ProtectedRoute from "./components/protectedRoute";
 import Dashboard from "./pages/Dashboardpage";
 import Weatherpage from "./pages/Weatherpage";
 import Cryptopage from "./pages/Cryptopage";
@@ -18,33 +17,33 @@ const router = createBrowserRouter([
     errorElement: <Errorpage />,
   },
 
-  {
-    path: "/signup",
-    element: <Signuppage />,
-  },
+  // {
+  //   path: "/signup",
+  //   element: <Signuppage />,
+  // },
 
-  {
-    path: "/login",
-    element: <Loginpage />,
-  },
+  // {
+  //   path: "/login",
+  //   element: <Loginpage />,
+  // },
 
   {
     path: "/dashboard",
-    element: <ProtectedRoute element={Dashboard} />,
+    element: <Dashboard />,
     children: [
       {
         path: "/dashboard/weather",
-        element: <ProtectedRoute element={Weatherpage} />,
+        element: <Weatherpage />,
       },
 
       {
         path: "/dashboard/crypto",
-        element: <ProtectedRoute element={Cryptopage} />,
+        element: <Cryptopage />,
       },
 
       {
         path: "/dashboard/zmanim",
-        element: <ProtectedRoute element={Zmanimpage} />,
+        element: <Zmanimpage />,
       },
     ],
   },

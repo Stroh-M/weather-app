@@ -1,3 +1,5 @@
+-- Not needed if not using accounts 
+
 CREATE DATABASE weather;
 
 CREATE TABLE user (

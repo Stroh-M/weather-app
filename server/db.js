@@ -1,3 +1,5 @@
+// Not needed if taking away sign up and security 
+
 import pg from "pg";
 import env from "dotenv";
 
